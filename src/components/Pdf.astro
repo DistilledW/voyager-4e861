@@ -1,0 +1,22 @@
+---
+// src/components/VideoPdfSection.astro
+const { title, videoSrc, items } = Astro.props;
+---
+
+<section>
+  <h2>{title}</h2>
+
+  <video width="800" controls>
+    <source src={videoSrc} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <ul>
+    {items.map((item) => (
+      <li>
+        <h3>{item.title}</h3>
+        <img src={item.image} alt={item.title} width="600" />
+      </li>
+    ))}
+  </ul>
+</section>

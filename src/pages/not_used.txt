@@ -7,7 +7,6 @@ import Hero from '@components/Hero.astro';
 import Logos from '@components/Logos.astro';
 import Testimonials from '@components/Testimonials.astro';
 import VideoPlayer from '@components/VideoPlayer.astro'; 
-import Pdf from '@components/Pdf.astro'; 
 import { fetchData, getPageById } from '@data/page';
 
 export async function getStaticPaths() {
@@ -33,33 +32,20 @@ const componentMap = {
     heroSection: Hero,
     logosSection: Logos,
     testimonialsSection: Testimonials,
-    videoSection: VideoPlayer,
-    PdfSection: Pdf 
+    videoSection: VideoPlayer
 };
 ---
 
-<Layout title="Voyager" description="Voyager-web">
-  <section>
-    <h2>Voyager: Real-Time Splatting City-Scale 3D Gaussians on Your Phone</h2>
-
-    <video width="800" controls>
-      <source src="/public/demo.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </section>
-
-  <section>
-    <h2>讲义图像</h2>
-
-    <ul>
-      <li>
-        <h3>第一章：绪论</h3>
-        <img src="/pdf-images/chapter1.png" alt="第一章" width="600" />
-      </li>
-      <li>
-        <h3>第二章：基本概念</h3>
-        <img src="/pdf-images/chapter2.png" alt="第二章" width="600" />
-      </li>
-    </ul>
-  </section>
-</Layout>
+{
+    page && (
+        <Layout title={metaTitle ?? title} description={metaDescription} image={socialImage}>
+            <div data-sb-object-id={_id}>
+                {sections?.length &&
+                    sections.map((section, idx) => {
+                        const Component = componentMap[section._type];
+                        return <Component {...section} data-sb-field-path={`sections.${idx}`} />;
+                    })}
+            </div>
+        </Layout>
+    )
+}

@@ -3,7 +3,7 @@ import {HomeIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'company',
-  title: 'Voyager',
+  title: 'Company',
   type: 'document',
   icon: HomeIcon,
   groups: [
